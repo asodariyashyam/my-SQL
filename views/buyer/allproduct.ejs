@@ -119,17 +119,19 @@
   </tr>
 
   <% let no = 1; %> <% for (let i of data) { %>
-  <tr>
-    <td><%= no++ %></td>
-    <td><%= i.product_name %></td>
-    <td><%= i.price %></td>
-    <td><%= i.old_price %></td>
-    <td><%= i.stock%></td>
-    <td><%= i.description.slice(0, 15) %></td>
-    <% if (cookieData.role === "Admin") { %> 
-        <td><a href="/admin/admindetelproduct?id=<%= i.id%>">delete</a> </td>
-    <%}%>
-    <td><a href="/addproduct?id=<%= i.id %>">Add to card</a></td>
-  </tr>
+    <% if(i.stock > 0) { %>
+      <tr>
+        <td><%= no++ %></td>
+        <td><%= i.product_name %></td>
+        <td><%= i.price %></td>
+        <td><%= i.old_price %></td>
+        <td><%= i.stock%></td>
+        <td><%= i.description.slice(0, 15) %></td>
+        <% if (cookieData.role === "Admin") { %> 
+            <td><a href="/admin/admindetelproduct?id=<%= i.id%>">delete</a> </td>
+        <%}%>
+        <td><a href="/addproduct?id=<%= i.id %>">Add to card</a></td>
+      </tr>
+    <% } %>
   <% } %>
 </table>
