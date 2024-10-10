@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Management System</title>
+    <style>
+      /* General styles for the body */
+      body {
+        font-family: Arial, sans-serif; /* Set a default font */
+        margin: 0; /* Remove default body margin */
+        background-color: #f3f4f6; /* Light background color */
+        color: #333; /* Default text color */
+      }
+
+      /* Header styles */
+      header {
+        background-color: #007bff; /* Blue background for the header */
+        padding: 15px; /* Add padding around the header */
+        text-align: center; /* Center-align the header text */
+      }
+
+      /* Dropdown container */
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+
+      /* Button styling */
+      .dropbtn {
+        background-color: #007bff; /* Button color */
+        color: white; /* Text color */
+        padding: 10px 20px; /* Padding */
+        font-size: 16px; /* Font size */
+        border: none; /* No border */
+        cursor: pointer; /* Pointer cursor */
+        text-decoration: none; /* No underline */
+      }
+
+      /* Dropdown content (hidden by default) */
+      .dropdown-content {
+        display: none; /* Hidden by default */
+        position: absolute; /* Position it below the dropdown button */
+        background-color: #f9f9f9; /* Background color */
+        min-width: 160px; /* Minimum width */
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); /* Shadow effect */
+        z-index: 1; /* On top */
+        border-radius: 10px;
+      }
+
+      /* Links inside the dropdown */
+      .dropdown-content a {
+        color: black; /* Text color */
+        padding: 12px 16px; /* Padding */
+        text-decoration: none; /* No underline */
+        display: block; /* Block display */
+      }
+
+      /* Show the dropdown content on hover */
+      .dropdown:hover .dropdown-content {
+        display: block; /* Show the dropdown content */
+      }
+
+      /* Change the background color of dropdown links on hover */
+      .dropdown-content a:hover {
+        background-color: #f1f1f1;
+        border-radius: 10px; /* Change background on hover */
+      }
+
+      /* Navigation styles */
+      nav {
+        margin-top: 10px; /* Space between header and navigation */
+      }
+
+      nav ul {
+        list-style-type: none; /* Remove default list styling */
+        padding: 0; /* Remove padding from the list */
+      }
+
+      nav ul li {
+        display: inline; /* Display list items in a horizontal line */
+        margin-right: 80px; /* Space between navigation items */
+      }
+
+      nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.1em;
+        transition: color 0.3s ease;
+      }
+
+      nav ul li a:hover {
+        text-decoration: underline; /* Underline links on hover for feedback */
+        color: #ffcc00; /* Change color on hover */
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 600px) {
+        nav ul li {
+          display: block; /* Stack navigation items vertically on small screens */
+          margin: 5px 0; /* Space between vertical items */
+        }
+      }
+
+      /* Optional: Style for the footer (if needed) */
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <% const cookieData = locals.cookieData; %>
+
+        <ul>
+          <li>
+            <h4>
+              <span class="label">User Email ID:</span> <%= cookieData.email %>
+              <b> and </b>
+              <span class="label">User Role:</span> <%= cookieData.role %>
+            </h4>
+          </li>
+          
+
+          <li><a href="/">Home</a></li>
+
+          <% if (cookieData.role === "Seller" || cookieData.role === "Admin") {
+          %>
+          <li><a href="/api/product/insertproduct">Add Product</a></li>
+          <li><a href="/api/product/fetchedata">insert total data</a></li>
+
+          <% } %>
+          <li><a href="/buyer_product">buy product</a></li>
+
+          <% if (cookieData.role === "Admin") { %>
+          <li class="dropdown">
+            <a href="#" class="dropbtn">Show Details</a>
+            <div class="dropdown-content">
+              <a href="/admin/adminShowseller">show Admin</a>
+              <a href="/admin/sellerShowseller">show seller</a>
+              <a href="/admin/buyerShowseller">show Buyer</a>
+            </div>
+          </li>
+          <% } %>
+          <li><a href="/api/signIn">Sign In</a></li>
+          <li><a href="/api/signUp">Sign Up</a></li>
+          <li><a href="/api/signout">Sign Out</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Optional footer -->
+  </body>
+</html>

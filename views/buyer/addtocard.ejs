@@ -1,0 +1,150 @@
+<style>
+/* Styling the overall card container */
+.product-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px auto;
+  width: 100%;
+  max-width: 600px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  .product-card {
+    padding: 15px;
+    margin: 10px;
+  }
+}
+
+/* Styling the product name */
+.product-card h1 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Styling the price */
+.product-card .price {
+  font-size: 20px;
+  color: #007bff;
+  margin-bottom: 5px;
+}
+
+/* Styling the old price */
+.product-card .old-price {
+  font-size: 18px;
+  color: #999;
+  text-decoration: line-through;
+  margin-bottom: 10px;
+}
+
+/* Styling the product description */
+.product-card p {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* Styling the quantity input container */
+.product-card div {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.product-card label {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.product-card input[type="number"] {
+  width: 80px;
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+/* Styling the submit button within the form */
+.product-card form button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.product-card form button:hover {
+  background-color: #0056b3;
+}
+
+/* Existing styles remain here... */
+
+/* Styling the number input field */
+.product-card input[type="number"] {
+  width: 80px; /* Adjust the width as needed */
+  padding: 10px; /* Increase padding for a better touch target */
+  font-size: 16px; /* Set font size */
+  border: 1px solid #ccc; /* Light border */
+  border-radius: 4px; /* Rounded corners */
+  margin-bottom: 10px; /* Space below the input */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: border-color 0.3s ease; /* Transition effect on focus */
+}
+
+/* Change border color on focus */
+.product-card input[type="number"]:focus {
+  border-color: #007bff; /* Blue border on focus */
+  outline: none; /* Remove default outline */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a glow effect */
+}
+
+.back-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #bb0505; /* Light background */
+    color: #ffffff; /* Dark text */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 5px; /* Rounded corners */
+    text-decoration: none; /* Remove underline */
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #890808; /* Darker on hover */
+}
+
+
+</style>
+
+<%- include("../header") %>
+
+<div class="product-card">
+  <h1><%= data.product_name %></h1>
+  <h2 class="price">Price: <%= data.price %></h2>
+  <h2 class="old-price">Old Price: <%= data.old_price %></h2>
+  <p>Description: <%= data.description %></p>
+
+  <div>
+    <form method="post" action="/quantity?id=<%= data.id %>">
+      <label for="quantity">Enter quantity:</label>
+      <input type="number" id="quantity" name="quantity" min="1" value="1" /><br>
+      <a href="/" class="back-button"><- Back</a>
+      <button type="submit">Buy Now</button>
+    </form>
+  </div>
+</div>
+
