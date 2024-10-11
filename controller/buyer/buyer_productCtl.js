@@ -125,16 +125,37 @@ module.exports.buyer_product = (req, res) => {
   });
 };
 
-module.exports.removecart=(req, res)=>{
+module.exports.removecart = (req, res) => {
   const cartId = req.query.id;
-  
-  const deleteSql = "DELETE FROM cart WHERE id = ?";
 
-      db.query(deleteSql, [cartId], function (error, result) {
-        if (error) {
-          console.error(error);
+  const selectSql = "SELECT productId, quantity FROM cart WHERE id = ?";
+  db.query(selectSql, [cartId], (error, results) => {
+    if (error) {
+      console.error(error);
+      return commonClass.reply(res, 500, true, "Database error");
+    }
+
+    if (results.length === 0) {
+      return commonClass.reply(res, 404, true, "Cart item not found");
+    }
+
+    const { productId, quantity } = results[0];
+
+    const deleteSql = "DELETE FROM cart WHERE id = ?";
+    db.query(deleteSql, [cartId], (deleteError, deleteResult) => {
+      if (deleteError) {
+        console.error(deleteError);
+        return commonClass.reply(res, 500, true, "Database error");
+      }
+      const updateStockSql = "UPDATE product SET stock = stock + ? WHERE id = ?";
+      db.query(updateStockSql, [quantity, productId], (updateError, updateResult) => {
+        if (updateError) {
+          console.error(updateError);
           return commonClass.reply(res, 500, true, "Database error");
         }
+
         return res.redirect("/buyer_product");
-        });
-}
+      });
+    });
+  });
+};
